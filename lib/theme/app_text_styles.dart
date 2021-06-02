@@ -10,6 +10,11 @@ abstract class AppTextStyles {
   TextStyle get inter14_400;
   TextStyle get inter20_600_green;
   TextStyle get inter20_600_red;
+
+  TextStyle get eventTileTitle;
+  TextStyle get eventTileSubtitle;
+  TextStyle get eventTileMoney;
+  TextStyle get eventTilePeople;
 }
 
 class AppTextStylesDefault implements AppTextStyles {
@@ -63,5 +68,37 @@ class AppTextStylesDefault implements AppTextStyles {
         fontSize: 20,
         fontWeight: FontWeight.w600,
         color: AppTheme.colors.textRed,
+      );
+
+  @override
+  // TODO: implement eventTilePeople
+  TextStyle get eventTilePeople => GoogleFonts.inter(
+        color: AppTheme.colors.eventTilePeople,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      );
+
+  @override
+  // TODO: implement eventTileSubtitle
+  TextStyle get eventTileSubtitle => GoogleFonts.inter(
+        color: AppTheme.colors.eventTileSubtitle,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      );
+
+  @override
+  // TODO: implement eventTileTitle
+  TextStyle get eventTileTitle => GoogleFonts.inter(
+        fontSize: 16,
+        color: AppTheme.colors.eventTileTitle,
+        fontWeight: FontWeight.w600,
+      );
+
+  @override
+  // TODO: implement eventTitleMoney
+  TextStyle get eventTileMoney => GoogleFonts.inter(
+        color: AppTheme.colors.eventTileMoney,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
       );
 }

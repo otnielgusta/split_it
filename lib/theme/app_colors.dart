@@ -9,10 +9,17 @@ abstract class AppColors {
   Color get border;
   Color get textRed;
 
-  Color get backgroundOpacityGreen;
-  Color get backgroundOpacityRed;
+  Color get backgroundIconGreen;
+  Color get backgroundIconRed;
 
-  Color get borderOpacityWhite;
+  Color get borderWhite;
+
+  Color get eventTileTitle;
+  Color get eventTileSubtitle;
+  Color get eventTileMoney;
+  Color get eventTilePeople;
+
+  Color get divider;
 }
 
 class AppColorsDefault implements AppColors {
@@ -42,17 +49,37 @@ class AppColorsDefault implements AppColors {
 
   @override
   // TODO: implement backgroundOpacityGreen
-  Color get backgroundOpacityGreen => new Color.fromRGBO(64, 178, 140, 0.12);
+  Color get backgroundIconGreen => new Color(0xFF45CC93);
 
   @override
   // TODO: implement borderOpacityWhite
-  Color get borderOpacityWhite => new Color.fromRGBO(255, 255, 255, 0.25);
+  Color get borderWhite => new Color(0xFFFFFFFF);
 
   @override
   // TODO: implement backgroundOpacityRed
-  Color get backgroundOpacityRed => new Color.fromRGBO(232, 63, 91, 0.1);
+  Color get backgroundIconRed => new Color(0xFFFDECEF);
 
   @override
   // TODO: implement textRed
   Color get textRed => Color(0xFFE83F5B);
+
+  @override
+  // TODO: implement eventTilePeople
+  Color get eventTilePeople => Color(0xFFA4B2AE);
+
+  @override
+  // TODO: implement eventTileSubtitle
+  Color get eventTileSubtitle => Color(0xFF666666);
+
+  @override
+  // TODO: implement eventTileTitle
+  Color get eventTileTitle => Color(0xFFFF455250);
+
+  @override
+  // TODO: implement eventTitleMoney
+  Color get eventTileMoney => Color(0xFF666666);
+
+  @override
+  // TODO: implement divider
+  Color get divider => Color(0xFF666666);
 }
