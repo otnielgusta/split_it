@@ -35,7 +35,9 @@ class _HomePageState extends State<HomePage> {
           preferredSize: Size.fromHeight(298),
           child: AppBarWidget(
             user: user,
-            onTapAddButton: () {},
+            onTapAddButton: () {
+              Navigator.pushNamed(context, "/create-split");
+            },
           )),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16),

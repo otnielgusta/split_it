@@ -15,6 +15,17 @@ abstract class AppTextStyles {
   TextStyle get eventTileSubtitle;
   TextStyle get eventTileMoney;
   TextStyle get eventTilePeople;
+
+  TextStyle get stepperIndicatorPrimary;
+  TextStyle get stepperIdicatorSecondary;
+
+  TextStyle get stepperButtonsActive;
+  TextStyle get stepperButtonsDisable;
+
+  TextStyle get stepperTitle;
+  TextStyle get stepperSubtitle;
+  TextStyle get hintTextFild;
+  TextStyle get textField;
 }
 
 class AppTextStylesDefault implements AppTextStyles {
@@ -100,5 +111,69 @@ class AppTextStylesDefault implements AppTextStyles {
         color: AppTheme.colors.eventTileMoney,
         fontSize: 14,
         fontWeight: FontWeight.w400,
+      );
+
+  @override
+  // TODO: implement roboto_400_14
+  TextStyle get stepperIndicatorPrimary => GoogleFonts.roboto(
+        color: AppTheme.colors.stepperIndicatorPrimary,
+        fontSize: 14,
+        fontWeight: FontWeight.w700,
+      );
+
+  @override
+  // TODO: implement stepperIdicatorSecondary
+  TextStyle get stepperIdicatorSecondary => GoogleFonts.roboto(
+        color: AppTheme.colors.stepperIdicatorSecondary,
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+      );
+
+  @override
+  // TODO: implement stepperButtonsActive
+  TextStyle get stepperButtonsActive => GoogleFonts.inter(
+        color: AppTheme.colors.buttonsActive,
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+      );
+
+  @override
+  // TODO: implement stepperButtonsDisable
+  TextStyle get stepperButtonsDisable => GoogleFonts.inter(
+        color: AppTheme.colors.buttonsDisable,
+        fontSize: 12,
+        fontWeight: FontWeight.w500,
+      );
+
+  @override
+  // TODO: implement stepperSubtitle
+  TextStyle get stepperSubtitle => GoogleFonts.inter(
+        color: AppTheme.colors.stepperSubtitle,
+        fontSize: 24,
+        fontWeight: FontWeight.w400,
+      );
+
+  @override
+  // TODO: implement stepperTitle
+  TextStyle get stepperTitle => GoogleFonts.inter(
+        color: AppTheme.colors.stepperTitle,
+        fontSize: 24,
+        fontWeight: FontWeight.w700,
+      );
+
+  @override
+  // TODO: implement hintTextFild
+  TextStyle get hintTextFild => GoogleFonts.inter(
+        color: AppTheme.colors.hintTextFild,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      );
+
+  @override
+  // TODO: implement textField
+  TextStyle get textField => GoogleFonts.inter(
+        color: AppTheme.colors.textField,
+        fontSize: 16,
+        fontWeight: FontWeight.w500,
       );
 }

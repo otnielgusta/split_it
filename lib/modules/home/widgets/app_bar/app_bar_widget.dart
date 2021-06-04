@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:split_it/modules/home/widgets/app_bar/app_bar_state.dart';
+
 import 'package:split_it/modules/home/widgets/bottom_app_bar/bottom_app_bar_widget.dart';
-import 'package:split_it/modules/home/widgets/icon_dollar_widget.dart';
+
 import 'package:split_it/modules/login/models/user_model.dart';
 import 'package:split_it/theme/app_theme.dart';
 
 import '../add_button_widget.dart';
-import 'app_bar_controller.dart';
-import 'widgets/app_bar_card_widget.dart';
 
 class AppBarWidget extends StatefulWidget {
   final UserModel user;
