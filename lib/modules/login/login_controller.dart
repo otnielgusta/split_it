@@ -1,45 +1,34 @@
-import 'dart:ffi';
-
 import 'package:flutter/cupertino.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:mobx/mobx.dart' as mobx;
+import 'package:mobx/mobx.dart';
 
 import 'package:split_it/modules/login/login_service.dart';
-import 'package:split_it/modules/login/models/user_model.dart';
 
 import 'login_state.dart';
 
-class LoginController {
-  LoginState state = LoginStateEmpty();
-  VoidCallback onUpdate;
-  final LoginService service;
-  Function(LoginState state)? onChange;
+part 'login_controller.g.dart';
 
-  LoginController({
-    required this.onUpdate,
+class LoginController = _LoginControllerBase with _$LoginController;
+
+abstract class _LoginControllerBase with mobx.Store {
+  @mobx.observable
+  LoginState state = LoginStateEmpty();
+
+  final LoginService service;
+
+  _LoginControllerBase({
     required this.service,
   });
 
+  @mobx.action
   Future<void> googleSignIn() async {
     try {
-      update();
       state = LoginStateLoading();
-      update();
+
       final user = await service.googleSignIn();
       state = LoginStateSuccess(user: user);
-      update();
     } catch (error) {
       state = LoginStateFailure(message: error.toString());
     }
-  }
-
-  void update() {
-    onUpdate();
-    if (onChange != null) {
-      onChange!(state);
-    }
-  }
-
-  void listen(Function(LoginState state) onChange) {
-    this.onChange = onChange;
   }
 }
