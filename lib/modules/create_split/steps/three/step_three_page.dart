@@ -3,7 +3,8 @@ import 'package:split_it/modules/create_split/widgets/step_input_text_widget.dar
 import 'package:split_it/modules/create_split/widgets/step_title_widget.dart';
 
 class StepThreePage extends StatefulWidget {
-  const StepThreePage({Key? key}) : super(key: key);
+  final String texto;
+  const StepThreePage({Key? key, required this.texto}) : super(key: key);
 
   @override
   _StepThreePageState createState() => _StepThreePageState();
@@ -34,6 +35,7 @@ class _StepThreePageState extends State<StepThreePage> {
                     Expanded(
                       flex: 3,
                       child: StepInputTextWidget(
+                        texto: widget.texto,
                         disableBorder: true,
                         padding: EdgeInsets.zero,
                         onChange: (value) {},
@@ -43,6 +45,7 @@ class _StepThreePageState extends State<StepThreePage> {
                     ),
                     Expanded(
                       child: StepInputTextWidget(
+                        texto: widget.texto,
                         disableBorder: true,
                         padding: EdgeInsets.zero,
                         onChange: (value) {},

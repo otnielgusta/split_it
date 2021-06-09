@@ -1,13 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:split_it/modules/create_split/create_split_controller.dart';
 import 'package:split_it/theme/app_theme.dart';
 
 class CreateSplitAppBarWidget extends PreferredSize {
   final VoidCallback onTap;
-  final int index;
+  final CreateSplitController controller;
   final int length;
   CreateSplitAppBarWidget(
-      {required this.onTap, required this.index, required this.length})
+      {required this.onTap, required this.controller, required this.length})
       : super(
           child: SafeArea(
             child: Padding(
@@ -21,14 +23,17 @@ class CreateSplitAppBarWidget extends PreferredSize {
                         color: AppTheme.colors.backButton,
                       ),
                       onPressed: onTap),
-                  Text.rich(TextSpan(
-                      text: "0${index + 1}",
-                      style: AppTheme.textStyle.stepperIndicatorPrimary,
-                      children: [
-                        TextSpan(
-                            text: " - 0$length",
-                            style: AppTheme.textStyle.stepperIdicatorSecondary),
-                      ]))
+                  Observer(builder: (context) {
+                    return Text.rich(TextSpan(
+                        text: "0${controller.currentPage + 1}",
+                        style: AppTheme.textStyle.stepperIndicatorPrimary,
+                        children: [
+                          TextSpan(
+                              text: " - 0$length",
+                              style:
+                                  AppTheme.textStyle.stepperIdicatorSecondary),
+                        ]));
+                  })
                 ],
               ),
             ),

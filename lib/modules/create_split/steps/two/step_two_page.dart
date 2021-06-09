@@ -6,8 +6,10 @@ import 'package:split_it/modules/login/models/user_model.dart';
 import 'package:split_it/theme/app_theme.dart';
 
 class StepTwoPage extends StatefulWidget {
+  final String texto;
   final void Function(String value) onChanged;
-  const StepTwoPage({Key? key, required this.onChanged}) : super(key: key);
+  const StepTwoPage({Key? key, required this.onChanged, required this.texto})
+      : super(key: key);
 
   @override
   _StepTwoPageState createState() => _StepTwoPageState();
@@ -44,7 +46,9 @@ class _StepTwoPageState extends State<StepTwoPage> {
             height: 40,
           ),
           StepInputTextWidget(
-              onChange: widget.onChanged, hintText: "Nome da pessoa"),
+              texto: widget.texto,
+              onChange: widget.onChanged,
+              hintText: "Nome da pessoa"),
           SizedBox(
             height: 35,
           ),

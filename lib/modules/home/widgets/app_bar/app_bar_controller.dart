@@ -1,37 +1,31 @@
+import 'package:mobx/mobx.dart';
 import 'package:split_it/modules/home/repositories/home_repository.dart';
 import 'package:split_it/modules/home/repositories/home_repository_mock.dart';
 import 'package:split_it/modules/home/widgets/app_bar/app_bar_state.dart';
 
-class AppBarController {
+part 'app_bar_controller.g.dart';
+
+class AppBarController = _AppBarControllerBase with _$AppBarController;
+
+abstract class _AppBarControllerBase with Store {
   late HomeRepository repository;
 
+  @observable
   AppBarState state = AppBarStateEmpty();
 
-  Function(AppBarState state)? onListen;
-
-  AppBarController({HomeRepository? repository}) {
+  _AppBarControllerBase({HomeRepository? repository}) {
     this.repository = repository ?? HomeRepositoryMock();
   }
 
+  @action
   getDashboard() async {
-    update(AppBarStateLoading());
+    state = AppBarStateLoading();
     try {
       final response = await repository.getDashboard();
 
-      update(AppBarStateSuccess(dashboardModel: response));
+      state = AppBarStateSuccess(dashboardModel: response);
     } catch (e) {
-      update(AppBarStateFailure(message: e.toString()));
+      state = AppBarStateFailure(message: e.toString());
     }
-  }
-
-  void update(AppBarState state) {
-    this.state = state;
-    if (this.onListen != null) {
-      this.onListen!(state);
-    }
-  }
-
-  void listen(Function(AppBarState state) onChanged) {
-    this.onListen = onChanged;
   }
 }

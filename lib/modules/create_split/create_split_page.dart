@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:split_it/modules/create_split/create_split_controller.dart';
 import 'package:split_it/modules/create_split/steps/one/step_one_page.dart';
 import 'package:split_it/modules/create_split/steps/three/step_three_page.dart';
 import 'package:split_it/modules/create_split/steps/two/step_two_page.dart';
 import 'package:split_it/modules/create_split/widgets/create_split_app_bar_widget.dart';
 import 'package:split_it/modules/create_split/widgets/stepper_bottom_bar.dart';
-import 'package:split_it/modules/create_split/widgets/stepper_next_button_widget.dart';
-import 'package:split_it/theme/app_colors.dart';
+
 import 'package:split_it/theme/app_theme.dart';
 
 class CreateSplitPage extends StatefulWidget {
@@ -21,45 +21,31 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
 
   late List<Widget> pages;
 
+  List<String> values = ["Otniel", "", ""];
+
   @override
   void initState() {
     pages = [
       Container(
         child: StepOnePage(
-          onChange: (value) {
-            controller.setEventName(value);
-            setState(() {});
-          },
+          controller: controller,
         ),
       ),
       Container(
         child: StepTwoPage(
-          onChanged: (value) {},
+          onChanged: (value) {
+            values[1] = value;
+          },
+          texto: values[1],
         ),
       ),
       Container(
-        child: StepThreePage(),
+        child: StepThreePage(
+          texto: "",
+        ),
       ),
     ];
     super.initState();
-  }
-
-  var index = 0;
-
-  void nextPage() {
-    if (index < 2) {
-      index++;
-      setState(() {});
-    }
-  }
-
-  void backPage() {
-    if (index > 0) {
-      index--;
-    } else if (index == 0) {
-      Navigator.pop(context);
-    }
-    setState(() {});
   }
 
   @override
@@ -67,21 +53,22 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
     return Scaffold(
       backgroundColor: AppTheme.colors.backgroundPrimary,
       appBar: CreateSplitAppBarWidget(
-        index: index,
+        controller: controller,
         length: pages.length,
         onTap: () {
-          setState(() {
-            backPage();
-          });
+          controller.backPage(() => Navigator.pop(context));
         },
       ),
       bottomNavigationBar: StepperBottomBarWidget(
-        enabledButtons: controller.enableNavigateButton(),
+        controller: controller,
         onTap: () {
-          nextPage();
+          controller.nextPage();
         },
       ),
-      body: pages[index],
+      body: Observer(builder: (context) {
+        final index = controller.currentPage;
+        return pages[index];
+      }),
     );
   }
 }
