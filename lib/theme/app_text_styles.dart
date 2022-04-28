@@ -26,6 +26,10 @@ abstract class AppTextStyles {
   TextStyle get stepperSubtitle;
   TextStyle get hintTextFild;
   TextStyle get textField;
+  TextStyle get personTileName;
+  TextStyle get personTileNameBold;
+  TextStyle get info;
+  TextStyle get addButton;
 }
 
 class AppTextStylesDefault implements AppTextStyles {
@@ -175,5 +179,36 @@ class AppTextStylesDefault implements AppTextStyles {
         color: AppTheme.colors.textField,
         fontSize: 16,
         fontWeight: FontWeight.w500,
+      );
+
+  @override
+  // TODO: implement personTileName
+  TextStyle get personTileName => GoogleFonts.inter(
+        color: AppTheme.colors.textField,
+        fontSize: 16,
+        fontWeight: FontWeight.w400,
+      );
+  @override
+  // TODO: implement personTileName
+  TextStyle get personTileNameBold => GoogleFonts.inter(
+        color: AppTheme.colors.eventTileTitle,
+        fontSize: 16,
+        fontWeight: FontWeight.w700,
+      );
+
+  @override
+  // TODO: implement textField
+  TextStyle get info => GoogleFonts.inter(
+        color: AppTheme.colors.hintTextFild,
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+      );
+
+  @override
+  // TODO: implement textField
+  TextStyle get addButton => GoogleFonts.inter(
+        color: AppTheme.colors.backgroundIconGreen,
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
       );
 }

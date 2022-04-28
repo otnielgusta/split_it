@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:split_it/modules/login/models/user_model.dart';
+import 'package:split_it/shared/models/friend_model.dart';
+import 'package:split_it/theme/app_text_styles.dart';
+import 'package:split_it/theme/app_theme.dart';
 
 class PersonTile extends StatelessWidget {
-  final UserModel user;
-
+  final FriendModel friend;
   final bool isRemoved;
-  static String photoUserDefault =
-      "https://i1.wp.com/terracoeconomico.com.br/wp-content/uploads/2019/01/default-user-image.png?ssl=1";
-  const PersonTile({Key? key, this.isRemoved = false, required this.user})
+  final VoidCallback onPressed;
+  const PersonTile(
+      {Key? key,
+      this.isRemoved = false,
+      required this.onPressed,
+      required this.friend})
       : super(key: key);
 
   @override
@@ -16,13 +21,24 @@ class PersonTile extends StatelessWidget {
       leading: Container(
         width: 40,
         height: 40,
-        child: Image.network(
-            user.photoUrl != null ? user.photoUrl! : photoUserDefault),
+        decoration: BoxDecoration(
+            color: Colors.grey.shade200,
+            borderRadius: BorderRadius.circular(10),
+            image: DecorationImage(
+                image: NetworkImage(friend.photoUrl), fit: BoxFit.cover)),
       ),
-      title: Text(user.name!),
+      title: Text(friend.name,
+          style: isRemoved
+              ? AppTheme.textStyle.personTileNameBold
+              : AppTheme.textStyle.personTileName),
       trailing: IconButton(
-        onPressed: () {},
-        icon: isRemoved ? Icon(Icons.remove) : Icon(Icons.add),
+        onPressed: onPressed,
+        icon: isRemoved
+            ? Icon(
+                Icons.remove,
+                color: Colors.red,
+              )
+            : Icon(Icons.add, color: Colors.green),
       ),
     );
   }

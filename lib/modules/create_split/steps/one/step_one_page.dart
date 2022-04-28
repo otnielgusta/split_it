@@ -29,7 +29,7 @@ class _StepOnePageState extends State<StepOnePage> {
             height: 40,
           ),
           StepInputTextWidget(
-              texto: widget.controller.eventName,
+              type: TextInputType.text,
               onChange: (value) {
                 widget.controller.setEventName(value);
               },

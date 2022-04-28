@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:split_it/theme/app_theme.dart';
 
-class StepInputTextWidget extends StatefulWidget {
+class StepInputTextWidget extends StatelessWidget {
   final String hintText;
   final void Function(String value) onChange;
   final TextAlign align;
   final EdgeInsets? padding;
   final disableBorder;
   final TextInputType type;
-  final String texto;
+  final TextEditingController? controller;
 
   const StepInputTextWidget(
       {Key? key,
@@ -17,50 +17,37 @@ class StepInputTextWidget extends StatefulWidget {
       this.align = TextAlign.center,
       this.padding,
       this.disableBorder = false,
-      this.type = TextInputType.text,
-      required this.texto})
+      required this.type,
+      this.controller})
       : super(key: key);
-
-  @override
-  _StepInputTextWidgetState createState() => _StepInputTextWidgetState();
-}
-
-class _StepInputTextWidgetState extends State<StepInputTextWidget> {
-  TextEditingController actual = TextEditingController();
-
-  @override
-  void initState() {
-    actual.text = widget.texto;
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: widget.padding ?? const EdgeInsets.symmetric(horizontal: 64),
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: 64),
       child: TextField(
-        controller: actual,
-        keyboardType: widget.type,
-        onChanged: widget.onChange,
+        controller: controller,
+        keyboardType: type,
+        onChanged: onChange,
         style: AppTheme.textStyle.textField,
-        textAlign: widget.align,
+        textAlign: align,
         decoration: InputDecoration(
           border: UnderlineInputBorder(
-            borderSide: widget.disableBorder
+            borderSide: disableBorder
                 ? BorderSide.none
                 : BorderSide(color: AppTheme.colors.inputBorder),
           ),
           enabledBorder: UnderlineInputBorder(
-            borderSide: widget.disableBorder
+            borderSide: disableBorder
                 ? BorderSide.none
                 : BorderSide(color: AppTheme.colors.inputBorder),
           ),
           focusedBorder: UnderlineInputBorder(
-            borderSide: widget.disableBorder
+            borderSide: disableBorder
                 ? BorderSide.none
                 : BorderSide(color: AppTheme.colors.inputBorder),
           ),
-          hintText: widget.hintText,
+          hintText: hintText,
           hintStyle: AppTheme.textStyle.hintTextFild,
         ),
       ),

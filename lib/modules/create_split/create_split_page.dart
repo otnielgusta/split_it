@@ -33,6 +33,7 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
       ),
       Container(
         child: StepTwoPage(
+          controller: controller,
           onChanged: (value) {
             values[1] = value;
           },
@@ -40,9 +41,7 @@ class _CreateSplitPageState extends State<CreateSplitPage> {
         ),
       ),
       Container(
-        child: StepThreePage(
-          texto: "",
-        ),
+        child: StepThreePage(),
       ),
     ];
     super.initState();

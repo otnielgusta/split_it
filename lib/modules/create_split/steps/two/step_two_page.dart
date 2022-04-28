@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:split_it/modules/create_split/create_split_controller.dart';
+import 'package:split_it/modules/create_split/steps/two/step_two_controller.dart';
 import 'package:split_it/modules/create_split/widgets/person_tile_widget.dart';
 import 'package:split_it/modules/create_split/widgets/step_input_text_widget.dart';
 import 'package:split_it/modules/create_split/widgets/step_title_widget.dart';
@@ -6,9 +9,15 @@ import 'package:split_it/modules/login/models/user_model.dart';
 import 'package:split_it/theme/app_theme.dart';
 
 class StepTwoPage extends StatefulWidget {
+  final CreateSplitController controller;
+
   final String texto;
   final void Function(String value) onChanged;
-  const StepTwoPage({Key? key, required this.onChanged, required this.texto})
+  const StepTwoPage(
+      {Key? key,
+      required this.onChanged,
+      required this.texto,
+      required this.controller})
       : super(key: key);
 
   @override
@@ -16,25 +25,15 @@ class StepTwoPage extends StatefulWidget {
 }
 
 class _StepTwoPageState extends State<StepTwoPage> {
-  List<UserModel> users = [
-    UserModel(
-        id: "id",
-        email: "email",
-        name: "Otniel",
-        photoUrl:
-            "https://media-exp1.licdn.com/dms/image/C4D03AQHCaMvLmDFYYA/profile-displayphoto-shrink_200_200/0/1607560318568?e=1628121600&v=beta&t=gbOM4-abMh5u60Oh7yHokDCyj6oBsxIlEsSr8VoHahE"),
-    UserModel(
-      id: "id",
-      email: "email",
-      name: "Otniel",
-    ),
-    UserModel(
-        id: "id",
-        email: "email",
-        name: "Otniel",
-        photoUrl:
-            "https://media-exp1.licdn.com/dms/image/C4D03AQHCaMvLmDFYYA/profile-displayphoto-shrink_200_200/0/1607560318568?e=1628121600&v=beta&t=gbOM4-abMh5u60Oh7yHokDCyj6oBsxIlEsSr8VoHahE"),
-  ];
+  late StepTwoController controller;
+
+  @override
+  void initState() {
+    controller = StepTwoController(controller: widget.controller);
+    controller.getFriends();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -46,15 +45,54 @@ class _StepTwoPageState extends State<StepTwoPage> {
             height: 40,
           ),
           StepInputTextWidget(
-              texto: widget.texto,
-              onChange: widget.onChanged,
-              hintText: "Nome da pessoa"),
+            type: TextInputType.text,
+            onChange: (value) {
+              print(value);
+              controller.onChange(value);
+            },
+            hintText: "Nome da pessoa",
+          ),
           SizedBox(
             height: 35,
           ),
-          Column(
-            children: [...users.map((e) => PersonTile(user: e))],
-          )
+          Observer(builder: (_) {
+            if (controller.selectedFriends.isEmpty) {
+              return Text("Nenhum amigo selecionado",
+                  style: AppTheme.textStyle.info);
+            } else {
+              return Column(
+                children: controller.selectedFriends
+                    .map((e) => PersonTile(
+                          friend: e,
+                          isRemoved: true,
+                          onPressed: () {
+                            controller.removeFrend(friend: e);
+                          },
+                        ))
+                    .toList(),
+              );
+            }
+          }),
+          SizedBox(
+            height: 30,
+          ),
+          Observer(builder: (_) {
+            if (controller.items.isEmpty) {
+              return Text("Nenhum amigo encontrado",
+                  style: AppTheme.textStyle.info);
+            } else {
+              return Column(
+                children: controller.items
+                    .map((e) => PersonTile(
+                          friend: e,
+                          onPressed: () {
+                            controller.addFriend(friend: e);
+                          },
+                        ))
+                    .toList(),
+              );
+            }
+          })
         ],
       ),
     );
